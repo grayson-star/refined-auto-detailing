@@ -1,17 +1,11 @@
 {
   "scripts": {
+    "build": "mkdir dist && cp index.html styles.css dist/",
     "start": "vite",
-    "build": "vite build",
-    "dev": "vite",
-    "preview": "vite preview"
+    "dev": "vite"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "latest",
-    "vite": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "lucide-react": "latest",
-    "framer-motion": "latest"
+    "vite": "latest"
   },
   "devDependencies": {}
 }
