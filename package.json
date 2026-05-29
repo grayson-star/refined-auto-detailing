@@ -1,96 +1,17 @@
-import React, { useState } from "react";
-import { createRoot } from "react-dom/client";
-import { motion } from "framer-motion";
-import { Car, Sparkles, ShieldCheck, MapPin, Phone, Mail, Droplets, CheckCircle, CalendarDays, Camera, Gem, Wand2, ChevronDown, Send } from "lucide-react";
-import "./styles.css";
-
-const FORM_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
-
-function App() {
-  const [selectedService, setSelectedService] = useState("Full Detail");
-
-  const services = [
-    { title: "Interior Detail", price: "From $120", subPrice: "SUV/Truck from $140", description: "A premium interior reset for daily drivers, commuters, and vehicles that need a cleaner, fresher cabin.", icon: <Sparkles size={24} />, items: ["Full vacuum", "Mats cleaned", "Interior panels wiped down", "Glass cleaned", "Dust and crumbs removed", "Trunk vacuum"] },
-    { title: "Exterior Detail", price: "From $90", subPrice: "SUV/Truck from $110", description: "A safe exterior wash focused on gloss, clean wheels, and a sharp finished look.", icon: <Droplets size={24} />, items: ["Foam pre-wash", "Hand wash", "Wheel and tire cleaning", "Hand dry", "Tire shine", "Spray protection"] },
-    { title: "Full Detail", price: "From $220", subPrice: "SUV/Truck from $260", description: "The complete inside-and-out package for a full vehicle refresh and a refined finish.", icon: <Car size={24} />, items: ["Interior detail", "Exterior detail", "Glass inside and out", "Wheel cleaning", "Tire shine", "Final inspection"] },
-    { title: "Ceramic Coating", price: "From $500", subPrice: "SUV/Truck from $700", description: "Professional-grade ceramic protection using CARPRO CQUARTZ UK 3.0 for gloss, slickness, and long-lasting protection.", icon: <ShieldCheck size={24} />, items: ["Exterior detail", "Paint decontamination", "Panel prep", "CQUARTZ UK 3.0 application", "Cure guidance", "Aftercare tips"] },
-    { title: "Paint Correction", price: "From $350", subPrice: "Final quote depends on paint condition", description: "Machine polishing designed to improve gloss and reduce light swirls, haze, and minor paint defects.", icon: <Wand2 size={24} />, items: ["Paint inspection", "Machine polishing", "Gloss enhancement", "Light swirl reduction", "Paint prep", "Protection option"] }
-  ];
-
-  const faq = [
-    ["Are you mobile?", "Yes. Refined Auto Detailing is mobile and serves Kitchener-Waterloo, Baden, New Hamburg, Tavistock, Wellesley, and nearby areas."],
-    ["Are prices fixed?", "Prices are starting points. Final quotes depend on vehicle size, condition, location, and the service selected."],
-    ["Do you offer shampoo extraction?", "Not currently. Interior details include strong vacuuming, wipe-downs, mats, glass, and light stain cleaning. Extraction packages may be added later."],
-    ["What ceramic coating do you use?", "Ceramic coating packages use CARPRO CQUARTZ UK 3.0, a professional-grade coating known for gloss and paint protection."],
-    ["Do you do engine bay cleaning or headlights?", "Not at the moment. The current focus is interior details, exterior details, full details, ceramic coatings, and paint correction."]
-  ];
-
-  return (
-    <div className="site">
-      <header>
-        <div className="wrap nav">
-          <a href="#home" className="brand"><LogoMark /><div><p>REFINED</p><small>Auto Detailing</small></div></a>
-          <nav><a href="#services">Services</a><a href="#ceramic">Ceramic</a><a href="#work">Gallery</a><a href="#booking">Booking</a><a href="#faq">FAQ</a></nav>
-          <a href="#booking" className="btn">Request Quote</a>
-        </div>
-      </header>
-
-      <main id="home">
-        <section className="hero">
-          <div className="grid-bg" />
-          <div className="wrap hero-grid">
-            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
-              <div className="pill"><MapPin size={16} /> Mobile detailing across Kitchener-Waterloo & surrounding areas</div>
-              <h1>Luxury mobile detailing for a refined finish.</h1>
-              <p className="lead">Refined Auto Detailing provides premium mobile detailing, ceramic coatings, and paint correction for drivers who care about presentation, protection, and a clean finish.</p>
-              <div className="actions"><a href="#booking" className="btn big">Request Quote</a><a href="#services" className="btn dark big">View Services</a></div>
-              <div className="trust"><span>✓ Mobile service</span><span>✓ Premium products</span><span>✓ Quote-based pricing</span></div>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.65, delay: 0.15 }} className="photo-card">
-              <div className="hero-photo"><span>Portfolio photos coming soon</span></div>
-              <div className="coating-badge"><div><small>Featured coating</small><strong>CARPRO CQUARTZ UK 3.0</strong></div><Gem size={28} /></div>
-            </motion.div>
-          </div>
-        </section>
-
-        <section className="feature-strip"><div className="wrap features"><Feature n="01" title="Mobile Convenience" text="Premium detailing brought to your driveway in KW, Baden, New Hamburg, Tavistock, Wellesley, and nearby areas." /><Feature n="02" title="Protection Focused" text="Exterior services are built around safe washing, gloss, and protecting the finish." /><Feature n="03" title="Luxury Presentation" text="A clean, minimal, high-end detailing experience from quote to final inspection." /></div></section>
-
-        <section id="services" className="section wrap"><SectionHeader eyebrow="Services & Pricing" title="Premium detailing packages." text="All prices are starting points. Final quotes depend on vehicle size, condition, location, and service level." /><div className="services-grid">{services.map((s, i) => <motion.div key={s.title} initial={{opacity:0,y:20}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{delay:i*0.05}} className="service"><div className="icon">{s.icon}</div><h3>{s.title}</h3><div className="price">{s.price}</div><small>{s.subPrice}</small><p>{s.description}</p><ul>{s.items.map(item => <li key={item}><CheckCircle size={17}/>{item}</li>)}</ul></motion.div>)}</div></section>
-
-        <section id="ceramic" className="section ceramic-band"><div className="wrap ceramic-grid"><div><SectionHeader eyebrow="Ceramic Coating" title="Gloss, slickness, and long-term protection." text="Ceramic coating packages use CARPRO CQUARTZ UK 3.0. This service is built for customers who want a glossier finish, easier maintenance, and better protection than a standard wash or spray sealant." /><div className="mini-grid"><Mini label="Small cars" value="$500+"/><Mini label="SUVs / trucks" value="$700+"/></div></div><div className="ceramic-box"><h3>Ceramic package includes</h3>{["Exterior detail","Chemical decontamination","Clay treatment when needed","Panel prep","CQUARTZ UK 3.0 application","Curing and maintenance guidance"].map(x=><div className="check" key={x}>✓ {x}</div>)}<p>Paint correction can be added before coating if the vehicle has swirls, haze, or dull paint. Final quote depends on paint condition.</p></div></div></section>
-
-        <section id="work" className="section wrap"><div className="gallery-top"><SectionHeader eyebrow="Gallery" title="Real results coming soon." text="These are premium placeholder photos. Replace them with your Polestar, your mom’s car, and your uncle’s car once your portfolio photos are ready." /><div className="pill"><Camera size={18}/> Add portfolio photos after coating</div></div><div className="gallery"><Gallery img="one" title="Ceramic Coating Finish" text="Use this spot for glossy reflection shots and water beading photos."/><Gallery img="two" title="Exterior Gloss Preview" text="Use this spot for clean side profiles and polished paint photos."/><Gallery img="three" title="Paint Finish Preview" text="Use this spot for close-up wheel, headlight, or reflection photos."/></div></section>
-
-        <section id="booking" className="section booking-band"><div className="wrap booking-grid"><div><SectionHeader eyebrow="Booking" title="Request a mobile detailing quote." text="Fill out the quote form with your vehicle, location, preferred service, and photos. You’ll receive a personalized quote before the appointment is confirmed." /><div className="steps">{["Choose your service","Send vehicle photos","Get your quote","Book your mobile appointment"].map((x,i)=><div className="step" key={x}><b>{i+1}</b>{x}</div>)}</div><div className="contact"><p><Phone size={20}/>382-889-1617</p><p><Mail size={20}/>Grayson@refined-auto-detailing.com</p><p><MapPin size={20}/>Kitchener-Waterloo, Baden, New Hamburg, Tavistock, Wellesley & nearby areas</p></div></div>
-          <form className="quote-form" action={FORM_ENDPOINT} method="POST">
-            <div className="row"><Input name="name" placeholder="Full name" required/><Input name="phone" placeholder="Phone number" required/></div>
-            <Input name="email" type="email" placeholder="Email address" required/>
-            <Input name="vehicle" placeholder="Vehicle year / make / model" required/>
-            <select name="service" value={selectedService} onChange={(e)=>setSelectedService(e.target.value)}>{services.map(s=><option key={s.title}>{s.title}</option>)}<option>Not Sure</option></select>
-            <select name="vehicle_type"><option>Vehicle Type</option><option>Coupe</option><option>Sedan</option><option>Hatchback</option><option>SUV</option><option>Truck</option><option>Large SUV</option></select>
-            <Input name="location" placeholder="Service address / area" required/>
-            <Input name="preferred_date" placeholder="Preferred date/time"/>
-            <textarea name="message" placeholder="Tell me about the vehicle condition, what you want done, and whether you can send photos." />
-            <input type="hidden" name="_subject" value="New Refined Auto Detailing quote request" />
-            <button type="submit" className="btn form-btn">Send Quote Request <Send size={17}/></button>
-            <p className="form-note">After you create your Formspree endpoint, replace YOUR_FORM_ID in src/main.jsx.</p>
-          </form>
-        </div></section>
-
-        <section id="faq" className="section wrap faq"><SectionHeader centered eyebrow="FAQ" title="Questions customers will ask." text="This section builds trust and filters customers before they contact you." />{faq.map(([q,a])=><details key={q}><summary>{q}<ChevronDown size={20}/></summary><p>{a}</p></details>)}</section>
-
-        <section className="section wrap cta-section"><div className="cta"><CalendarDays size={42}/><h2>Ready for a refined finish?</h2><p>Request a quote for mobile detailing, paint correction, or ceramic coating in the Kitchener-Waterloo area.</p><a href="#booking" className="btn big">Start Quote</a></div></section>
-      </main>
-      <footer><div className="wrap footer-inner"><a href="#home" className="brand"><LogoMark/><div><p>REFINED</p><small>Auto Detailing</small></div></a><span>© 2026 Refined Auto Detailing. Mobile detailing in Kitchener-Waterloo and surrounding areas.</span></div></footer>
-    </div>
-  );
+{
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "lucide-react": "latest",
+    "framer-motion": "latest"
+  },
+  "devDependencies": {}
 }
-
-function LogoMark({ large = false }) { return <div className={`logo ${large ? "large" : ""}`}><span>RD</span></div>; }
-function Feature({ n, title, text }) { return <div className="feature"><div className="num">{n}</div><h3>{title}</h3><p>{text}</p></div>; }
-function SectionHeader({ eyebrow, title, text, centered=false }) { return <div className={`section-head ${centered ? "centered" : ""}`}><div className="eyebrow">{eyebrow}</div><h2>{title}</h2><p>{text}</p></div>; }
-function Mini({ label, value }) { return <div className="mini"><span>{label}</span><strong>{value}</strong></div>; }
-function Gallery({ img, title, text }) { return <div className="gallery-card"><div className={`gallery-img ${img}`}></div><div><h3>{title}</h3><p>{text}</p></div></div>; }
-function Input(props) { return <input {...props} />; }
-
-createRoot(document.getElementById("root")).render(<App />);
