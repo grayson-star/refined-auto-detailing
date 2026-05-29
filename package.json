@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "build": "mkdir dist && cp index.html styles.css dist/",
+    "start": "vite",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "vite": "latest"
+  },
+  "devDependencies": {}
+}
